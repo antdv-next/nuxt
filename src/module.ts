@@ -4,6 +4,7 @@ import type { ComponentName } from './runtime/components'
 import type { IconName } from './runtime/icons'
 import components from './runtime/components'
 import icons from './runtime/icons'
+import { QRCode } from 'antdv-next'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -47,11 +48,18 @@ export default defineNuxtModule<ModuleOptions>({
   setup(_options, _nuxt) {
     _nuxt.options.build.transpile.push(libName)
 
+    const componentMap = {
+      QRCode: 'Qrcode',
+    }
     components.forEach((comp) => {
+      let _comp: string = comp
+      if (comp in componentMap) {
+        _comp = componentMap[comp as keyof typeof componentMap]
+      }
       addComponent({
         filePath: 'antdv-next',
         export: comp,
-        name: _options.prefix + comp,
+        name: _options.prefix + _comp,
       })
     })
 

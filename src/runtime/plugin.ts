@@ -6,6 +6,7 @@ export default defineNuxtPlugin(
     const styles: string[] = []
     setStyleCollector({
       push(styleText: string) {
+        console.log('Collected style:', styleText)
         styles.push(styleText)
       },
     })

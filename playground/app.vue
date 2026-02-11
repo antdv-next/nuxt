@@ -88,5 +88,10 @@
       </a-space>
     </a-space>
     <TableTest />
+    <a-qrcode
+      error-level="H"
+      value="'https://www.antdv-next.com"
+      icon="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+    />
   </a-config-provider>
 </template>
