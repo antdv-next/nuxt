@@ -33,6 +33,7 @@ export interface ModuleOptions {
 
 const libName = 'antdv-next'
 const iconLibName = `@antdv-next/icons`
+const iconsSvgLibName = '@ant-design/icons-svg'
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -45,7 +46,18 @@ export default defineNuxtModule<ModuleOptions>({
     prefix: 'A',
   },
   setup(_options, _nuxt) {
-    _nuxt.options.build.transpile.push(libName)
+    const transpileList = _nuxt.options.build.transpile
+    const appendTranspile = (dep: string) => {
+      if (!transpileList.includes(dep)) {
+        transpileList.push(dep)
+      }
+    }
+
+    // Keep icon definition modules in Nuxt transform pipeline to avoid
+    // cold-start interop inconsistency in dev SSR/hydration.
+    appendTranspile(libName)
+    appendTranspile(iconLibName)
+    appendTranspile(iconsSvgLibName)
 
     const componentMap = {
       QRCode: 'Qrcode',
@@ -63,7 +75,7 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     if (_options.icon !== false) {
-      _nuxt.options.build.transpile.push(iconLibName)
+      appendTranspile(iconLibName)
       icons.forEach((icon) => {
         addComponent({
           filePath: iconLibName,

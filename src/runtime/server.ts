@@ -5,7 +5,8 @@ export default defineNitroPlugin((nitro) => {
   nitro.hooks.hook('render:html', (html, { event }) => {
     const cache = event.context.__antdvCssInJsCache
     if (cache) {
-      html.head.unshift(extractStyle(cache))
+      const style = extractStyle(cache)
+      html.head.unshift(style)
     }
   })
 })

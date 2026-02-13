@@ -37,10 +37,10 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@antdv-next/cssinjs": "^1.0.1",
-    "@antdv-next/icons": "^1.0.0",
+    "@antdv-next/cssinjs": "1.0.2-beta.1",
+    "@antdv-next/icons":"1.0.1-beta.1",
     "@nuxt/kit": "^4.3.1",
-    "antdv-next": "^1.0.2",
+    "antdv-next": "1.0.3-beta.2",
     "vite-plugin-dayjs": "^1.0.1"
   },
   "devDependencies": {
@@ -58,6 +58,14 @@
     "nuxt": "^4.3.1",
     "typescript": "~5.9.3",
     "vitest": "^4.0.18",
-    "vue-tsc": "^3.2.4"
+    "vue-tsc": "^3.2.4",
+    "@v-c/rate":"1.0.1"
+  },
+  "pnpm":{
+    "overrides": {
+      "@antdv-next/icons":"1.0.1-beta.1",
+      "@antdv-next/cssinjs": "1.0.2-beta.1",
+      "@v-c/rate":"1.0.1"
+    }
   }
 }

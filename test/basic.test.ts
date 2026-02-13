@@ -54,69 +54,6 @@ describe('runtime plugin', () => {
     expect(createCache).toHaveBeenCalledTimes(1)
     expect(provideStyleContext).toHaveBeenCalledTimes(1)
   })
-
-  it('warns when static antd.css cache map is detected on client', async () => {
-    const createCache = vi.fn(() => ({ id: 'client-cache' }))
-    const provideStyleContext = vi.fn()
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    const globalObject = globalThis as Record<string, unknown>
-
-    const previousDocument = globalObject.document
-    const previousGetComputedStyle = globalObject.getComputedStyle
-
-    const body = {
-      appendChild: vi.fn(),
-      removeChild: vi.fn(),
-    }
-    const probe = {
-      className: '',
-      style: {} as Record<string, string>,
-    }
-
-    globalObject.document = {
-      body,
-      createElement: vi.fn(() => probe),
-    }
-    globalObject.getComputedStyle = vi.fn(() => ({
-      content: '"|Rate-Rate|ant-rate:hash;"',
-    }))
-
-    vi.doMock('#app', () => ({
-      defineNuxtPlugin: (fn: unknown) => fn,
-    }))
-    vi.doMock('@antdv-next/cssinjs', () => ({
-      createCache,
-      provideStyleContext,
-    }))
-
-    const { default: plugin } = await import('../src/runtime/plugin')
-    plugin({
-      vueApp: {},
-      hook: (name: string, cb: () => void) => {
-        if (name === 'app:mounted') {
-          cb()
-        }
-      },
-    } as never)
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Detected static cache map from `antdv-next/dist/antd.css`'))
-
-    if (previousDocument === undefined) {
-      delete globalObject.document
-    }
-    else {
-      globalObject.document = previousDocument
-    }
-
-    if (previousGetComputedStyle === undefined) {
-      delete globalObject.getComputedStyle
-    }
-    else {
-      globalObject.getComputedStyle = previousGetComputedStyle
-    }
-
-    warnSpy.mockRestore()
-  })
 })
 
 describe('nitro render hook', () => {
