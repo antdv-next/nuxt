@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import {
   HomeOutlined,
-  LoadingOutlined,
-  SettingFilled,
   SmileOutlined,
+  LoadingOutlined,
   SyncOutlined,
+  HeartFilled,
 } from '@antdv-next/icons'
 </script>
 
 <template>
-  <a-space>
+  <a-space wrap>
     <HomeOutlined />
-    <SettingFilled />
     <SmileOutlined />
-    <SyncOutlined spin />
     <SmileOutlined :rotate="180" />
     <LoadingOutlined />
+    <SettingFilled />
+    <SyncOutlined spin />
+    <HeartFilled />
   </a-space>
 </template>

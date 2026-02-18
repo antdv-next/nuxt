@@ -7,5 +7,6 @@ export default defineNuxtConfig({
   compatibilityDate: 'latest',
   antd: {
     icon: true,
+    component: true,
   },
 })
