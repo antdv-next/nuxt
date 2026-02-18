@@ -8,9 +8,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@antdv-next/icons": "^1.0.1",
     "@antdv-next/nuxt": "workspace:*",
-    "nuxt": "^4.3.1",
-    "@antdv-next/icons":"^1.0.1",
-    "antdv-next": "^1.0.3"
+    "antdv-next": "^1.0.3",
+    "nuxt": "^4.3.1"
   }
 }
