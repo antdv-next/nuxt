@@ -37,12 +37,12 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "@antdv-next/icons": "^1.0.1",
-    "antdv-next": "^1.0.3",
-    "nuxt": "^4.0.0"
+    "@antdv-next/icons": ">=1.0.1",
+    "antdv-next": ">=1.0.4-beta.2",
+    "nuxt": ">=4.0.0"
   },
   "dependencies": {
-    "@antdv-next/cssinjs": "^1.0.2",
+    "@antdv-next/cssinjs": "^1.0.3-beta.1",
     "@nuxt/kit": "^4.3.1",
     "vite-plugin-dayjs": "^1.0.1"
   },
@@ -58,7 +58,7 @@
     "antdv-next": "^1.0.3",
     "changelogen": "^0.6.2",
     "eslint": "^9.39.2",
-    "jsdom": "^28.0.0",
+    "jsdom": "^28.1.0",
     "nitropack": "^2.13.1",
     "nuxt": "^4.3.1",
     "typescript": "~5.9.3",

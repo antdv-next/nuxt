@@ -1,84 +1,119 @@
-<!--
-Get your module up and running quickly.
+<p align="center">
+  <img width="300px" src="https://www.antdv-next.com/antdv-next.svg">
+</p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@antdv-next/nuxt">
+    <img src="https://img.shields.io/npm/v/%40antdv-next%2Fnuxt.svg">
+  </a>
+  <a href="https://npmcharts.com/compare/@antdv-next/nuxt?minimal=true">
+    <img src="https://img.shields.io/npm/dm/%40antdv-next%2Fnuxt.svg">
+  </a>
+</p>
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
+# Antdv Next Nuxt
 
-# My Module
+> [Antdv Next](https://www.antdv-next.com) module for [Nuxt](https://nuxt.com)
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+[中文文档](./README.zh-CN.md)
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- Auto register `antdv-next` components as global Nuxt components.
+- Optional auto register icons from `@antdv-next/icons`.
+- Component prefix support (default: `A`), e.g. `AButton`.
+- SSR-safe CSS-in-JS setup and style extraction on server render.
+- Adds `vite-plugin-dayjs` automatically when using Vite builder.
 
-## Quick Setup
+## Version Requirements
 
-Install the module to your Nuxt application with one command:
+- Nuxt >= 4.0.0
+- Vue >= 3.5.0
+- antdv-next >= 1.0.4
+- @antdv-next/icons >= 1.0.1
+
+## Installation
 
 ```bash
-npx nuxt module add my-module
+npx nuxi@latest module add @antdv-next/nuxt
+# or
+pnpm add -D @antdv-next/nuxt antdv-next @antdv-next/icons
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+## Configuration
 
+```ts
+export default defineNuxtConfig({
+  modules: ['@antdv-next/nuxt'],
+  antd: {
+    icon: true,
+  },
+})
+```
 
-## Contribution
+`@antdv-next/nuxt` uses `antd` as the config key.
 
-<details>
-  <summary>Local development</summary>
-  
-  ```bash
-  # Install dependencies
-  npm install
-  
-  # Generate type stubs
-  npm run dev:prepare
-  
-  # Develop with the playground
-  npm run dev
-  
-  # Build the playground
-  npm run dev:build
-  
-  # Run ESLint
-  npm run lint
-  
-  # Run Vitest
-  npm run test
-  npm run test:watch
-  
-  # Release new version
-  npm run release
-  ```
+## Usage
 
-</details>
+```vue
+<template>
+  <a-button type="primary">Primary</a-button>
+  <HomeOutlined />
+</template>
+```
 
+If you keep the default prefix, component names are registered as `A*` (for example `AButton`, `ATable`, `AQrcode`).
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
+## Styles
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-module
+For reset styles:
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
+```ts
+export default defineNuxtConfig({
+  css: ['antdv-next/dist/reset.css'],
+})
+```
 
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt
-[nuxt-href]: https://nuxt.com
+For zero-runtime theme mode (recommended), also include:
+
+```ts
+export default defineNuxtConfig({
+  css: [
+    'antdv-next/dist/reset.css',
+    'antdv-next/dist/antd.css',
+  ],
+})
+```
+
+> [!WARNING]
+> If `nuxt devtools` is enabled, style loading in development may become slower.  
+> If you see slow style hydration or temporarily unclickable UI, try disabling `nuxt devtools`, or wait until related loading in the console is finished.
+>
+> This does not affect normal precompiled development flow or production builds.
+
+## Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `boolean` | `false` | Enable auto registration of icons from `@antdv-next/icons`. |
+| `prefix` | `string` | `'A'` | Prefix for auto-registered components. |
+| `include` | `ComponentName[]` | `undefined` | Only register listed components. Takes precedence over `exclude`. |
+| `exclude` | `ComponentName[]` | `undefined` | Exclude listed components when `include` is not set. |
+| `includeIcons` | `IconName[]` | `undefined` | Only register listed icons. Takes precedence over `excludeIcons`. |
+| `excludeIcons` | `IconName[]` | `undefined` | Exclude listed icons when `includeIcons` is not set. |
+
+Notes:
+
+- `ComponentName` values come from [src/runtime/components.ts](./src/runtime/components.ts).
+- `IconName` values come from [src/runtime/icons.ts](./src/runtime/icons.ts).
+- `includeIcons` and `excludeIcons` are effective only when `icon` is enabled.
+
+## Development
+
+```bash
+pnpm install
+pnpm dev:prepare
+pnpm dev
+pnpm dev:build
+pnpm lint
+pnpm test
+```
