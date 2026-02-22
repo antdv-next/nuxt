@@ -6,7 +6,7 @@
   >
     <a-alert
       message="组件水合验证 Playground"
-      description="已在 /components 页面实现每个组件一个最小 demo，便于你直接观察 SSR 与 hydration 行为。"
+      description="已在 /components 页面实现每个组件一个最小 demo，便于直接观察 SSR 与 hydration 行为。"
       type="info"
       show-icon
     />

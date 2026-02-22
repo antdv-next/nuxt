@@ -39,6 +39,8 @@ describe('module setup', () => {
     expect(nuxt.options.build.transpile).toEqual(
       expect.arrayContaining([
         'antdv-next',
+        '@v-c/picker',
+        'dayjs',
         '@antdv-next/icons',
         '@ant-design/icons-svg',
       ]),

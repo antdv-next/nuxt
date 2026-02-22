@@ -43,6 +43,8 @@ export interface ModuleOptions {
 const libName = 'antdv-next'
 const iconLibName = `@antdv-next/icons`
 const iconsSvgLibName = '@ant-design/icons-svg'
+const pickerLibName = '@v-c/picker'
+const dayjsLibName = 'dayjs'
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -72,6 +74,8 @@ export default defineNuxtModule<ModuleOptions>({
     // cold-start interop inconsistency in dev SSR/hydration.
     if (_options.component !== false) {
       appendTranspile(libName)
+      appendTranspile(pickerLibName)
+      appendTranspile(dayjsLibName)
     }
 
     // Always transpile icon libs because users may import icons directly
