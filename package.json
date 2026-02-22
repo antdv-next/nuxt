@@ -1,6 +1,6 @@
 {
   "name": "@antdv-next/nuxt",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Antdv Next Nuxt module",
   "repository": "antdv-next/nuxt",
   "license": "MIT",
@@ -34,7 +34,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "bump": "bumpp"
   },
   "peerDependencies": {
     "@antdv-next/icons": ">=1.0.1",
@@ -56,6 +57,7 @@
     "@types/jsdom": "^27.0.0",
     "@types/node": "latest",
     "antdv-next": "^1.0.4",
+    "bumpp": "^10.4.1",
     "changelogen": "^0.6.2",
     "eslint": "^9.39.3",
     "jsdom": "^28.1.0",
