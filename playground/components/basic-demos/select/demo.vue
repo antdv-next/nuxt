@@ -16,7 +16,7 @@ const value2 = shallowRef('lucy')
     <div>
       {{ value1 }}
     </div>
-    <a-select v-model:value="value1" style="width: 120px" :options="options" />
+    <a-select v-model:value="value1" style="width: 120px" :options="options" allow-clear />
     <a-select v-model:value="value2" style="width: 120px" disabled :options="[{ value: 'lucy', label: 'lucy' }]" />
   </a-space>
 </template>

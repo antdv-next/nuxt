@@ -5,5 +5,5 @@ const value = ref()
 </script>
 
 <template>
-  <a-input v-model:value="value" placeholder="Basic usage" />
+  <a-input v-model:value="value" placeholder="Basic usage" allow-clear />
 </template>

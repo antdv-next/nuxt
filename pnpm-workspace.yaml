@@ -1,7 +1,28 @@
 packages:
   - playground
-
 onlyBuiltDependencies:
-  - '@parcel/watcher'
+  - "@parcel/watcher"
   - esbuild
   - unrs-resolver
+catalog:
+  "@antdv-next/cssinjs": ^1.0.3
+  "@antdv-next/icons": ^1.0.1
+  "@nuxt/devtools": ^3.2.1
+  "@nuxt/eslint-config": ^1.15.1
+  "@nuxt/kit": ^4.3.1
+  "@nuxt/module-builder": ^1.0.2
+  "@nuxt/schema": ^4.3.1
+  "@nuxt/test-utils": ^4.0.0
+  "@types/jsdom": ^27.0.0
+  antdv-next: ^1.0.5-beta.1
+  bumpp: ^10.4.1
+  changelogen: ^0.6.2
+  eslint: ^9.39.3
+  jsdom: ^28.1.0
+  nitropack: ^2.13.1
+  nuxt: ^4.3.1
+  typescript: ~5.9.3
+  vite-plugin-dayjs: ^1.0.1
+  vitest: ^4.0.18
+  vue: ^3.5.28
+  vue-tsc: ^3.2.5
