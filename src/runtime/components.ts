@@ -16,6 +16,7 @@ const values = [
   'BadgeRibbon',
   'Tag',
   'CheckableTag',
+  'CheckableTagGroup',
   'Layout',
   'LayoutHeader',
   'LayoutFooter',
@@ -33,10 +34,13 @@ const values = [
   'Statistic',
   'StatisticTimer',
   'Descriptions',
+  'DescriptionsItem',
   'Timeline',
+  'TimelineItem',
   'Watermark',
   'QRCode',
   'Collapse',
+  'CollapsePanel',
   'Tooltip',
   'Segmented',
   'Popover',
@@ -45,9 +49,15 @@ const values = [
   'BackTop',
   'FloatButtonGroup',
   'Menu',
+  'SubMenu',
+  'MenuItem',
+  'MenuItemGroup',
+  'MenuDivider',
   'Dropdown',
   'Tour',
   'Breadcrumb',
+  'BreadcrumbItem',
+  'BreadcrumbSeparator',
   'Avatar',
   'AvatarGroup',
   'Form',
@@ -116,5 +126,17 @@ const values = [
 ] as const
 
 export type ComponentName = (typeof values)[number]
+
+const componentRegistrationAliases: Partial<Record<ComponentName, string>> = {
+  BackTop: 'FloatBackTop',
+  DateRangePicker: 'RangePicker',
+  InputOTP: 'InputOtp',
+  QRCode: 'Qrcode',
+  TextArea: 'Textarea',
+}
+
+export function resolveComponentRegistrationName(component: ComponentName) {
+  return componentRegistrationAliases[component] ?? component
+}
 
 export default values

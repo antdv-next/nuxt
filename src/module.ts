@@ -2,7 +2,7 @@ import { defineNuxtModule, addPlugin, createResolver, addVitePlugin, addComponen
 import dayjs from 'vite-plugin-dayjs'
 import type { ComponentName } from './runtime/components'
 import type { IconName } from './runtime/icons'
-import components from './runtime/components'
+import components, { resolveComponentRegistrationName } from './runtime/components'
 import icons from './runtime/icons'
 
 // Module options TypeScript interface definition
@@ -84,9 +84,6 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Register components
     if (_options.component !== false) {
-      const componentMap = {
-        QRCode: 'Qrcode',
-      }
       // Filter components based on include/exclude options
       const filteredComponents = components.filter((comp) => {
         if (_options.include?.length) {
@@ -99,14 +96,10 @@ export default defineNuxtModule<ModuleOptions>({
       })
 
       filteredComponents.forEach((comp) => {
-        let _comp: string = comp
-        if (comp in componentMap) {
-          _comp = componentMap[comp as keyof typeof componentMap]
-        }
         addComponent({
           filePath: 'antdv-next',
           export: comp,
-          name: _options.prefix + _comp,
+          name: _options.prefix + resolveComponentRegistrationName(comp),
         })
       })
     }
