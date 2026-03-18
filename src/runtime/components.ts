@@ -135,6 +135,23 @@ const componentRegistrationAliases: Partial<Record<ComponentName, string>> = {
   TextArea: 'Textarea',
 }
 
+export const componentParentDependencies: Partial<Record<ComponentName, ComponentName>> = {
+  BreadcrumbItem: 'Breadcrumb',
+  BreadcrumbSeparator: 'Breadcrumb',
+  CollapsePanel: 'Collapse',
+  DescriptionsItem: 'Descriptions',
+  MenuDivider: 'Menu',
+  MenuItem: 'Menu',
+  MenuItemGroup: 'Menu',
+  SubMenu: 'Menu',
+  TabPane: 'Tabs',
+  TableColumn: 'Table',
+  TableSummary: 'Table',
+  TableSummaryCell: 'Table',
+  TableSummaryRow: 'Table',
+  TimelineItem: 'Timeline',
+}
+
 export function resolveComponentRegistrationName(component: ComponentName) {
   return componentRegistrationAliases[component] ?? component
 }

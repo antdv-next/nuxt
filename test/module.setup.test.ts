@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import components, { resolveComponentRegistrationName } from '../src/runtime/components'
+import components, { componentParentDependencies, resolveComponentRegistrationName } from '../src/runtime/components'
 
 function asSetupModule(module: unknown) {
   return module as {
@@ -73,6 +73,10 @@ describe('module setup', () => {
     expect(resolveComponentRegistrationName('InputOTP')).toBe('InputOtp')
     expect(resolveComponentRegistrationName('QRCode')).toBe('Qrcode')
     expect(resolveComponentRegistrationName('TextArea')).toBe('Textarea')
+    expect(componentParentDependencies.SubMenu).toBe('Menu')
+    expect(componentParentDependencies.MenuItem).toBe('Menu')
+    expect(componentParentDependencies.MenuItemGroup).toBe('Menu')
+    expect(componentParentDependencies.MenuDivider).toBe('Menu')
   })
 
   it('registers resolver-compatible component aliases from the package root export', async () => {
@@ -103,11 +107,11 @@ describe('module setup', () => {
     module.setup({
       component: true,
       icon: false,
-      include: ['BackTop', 'DateRangePicker', 'InputOTP', 'QRCode', 'TextArea', 'SubMenu'],
+      include: ['BackTop', 'DateRangePicker', 'InputOTP', 'QRCode', 'TextArea', 'Menu', 'SubMenu'],
       prefix: 'A',
     }, nuxt)
 
-    expect(addComponent).toHaveBeenCalledTimes(6)
+    expect(addComponent).toHaveBeenCalledTimes(7)
     expect(addComponent.mock.calls.map(([arg]) => arg)).toEqual(expect.arrayContaining([
       {
         filePath: 'antdv-next',
@@ -136,9 +140,49 @@ describe('module setup', () => {
       },
       {
         filePath: 'antdv-next',
+        export: 'Menu',
+        name: 'AMenu',
+      },
+      {
+        filePath: 'antdv-next',
         export: 'SubMenu',
         name: 'ASubMenu',
       },
     ]))
+  })
+
+  it('does not register menu child components when Menu is filtered out', async () => {
+    const addComponent = vi.fn()
+
+    vi.doMock('@nuxt/kit', () => ({
+      defineNuxtModule: (module: unknown) => module,
+      addComponent,
+      addPlugin: vi.fn(),
+      addServerPlugin: vi.fn(),
+      addVitePlugin: vi.fn(),
+      createResolver: () => ({
+        resolve: (id: string) => `/virtual/${id}`,
+      }),
+    }))
+
+    const module = asSetupModule((await import('../src/module')).default)
+
+    const nuxt = {
+      options: {
+        build: {
+          transpile: [] as string[],
+        },
+        builder: '@nuxt/vite-builder',
+      },
+    }
+
+    module.setup({
+      component: true,
+      icon: false,
+      include: ['SubMenu', 'MenuItem', 'MenuItemGroup', 'MenuDivider'],
+      prefix: 'A',
+    }, nuxt)
+
+    expect(addComponent).not.toHaveBeenCalled()
   })
 })

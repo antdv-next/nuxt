@@ -2,7 +2,7 @@ import { defineNuxtModule, addPlugin, createResolver, addVitePlugin, addComponen
 import dayjs from 'vite-plugin-dayjs'
 import type { ComponentName } from './runtime/components'
 import type { IconName } from './runtime/icons'
-import components, { resolveComponentRegistrationName } from './runtime/components'
+import components, { componentParentDependencies, resolveComponentRegistrationName } from './runtime/components'
 import icons from './runtime/icons'
 
 // Module options TypeScript interface definition
@@ -94,8 +94,13 @@ export default defineNuxtModule<ModuleOptions>({
         }
         return true
       })
+      const registeredComponents = new Set(filteredComponents)
+      const effectiveComponents = filteredComponents.filter((comp) => {
+        const parent = componentParentDependencies[comp]
+        return parent == null || registeredComponents.has(parent)
+      })
 
-      filteredComponents.forEach((comp) => {
+      effectiveComponents.forEach((comp) => {
         addComponent({
           filePath: 'antdv-next',
           export: comp,
