@@ -5,7 +5,7 @@ onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
 catalog:
-  "@antdv-next/cssinjs": ^1.0.5
+  "@antdv-next/cssinjs": ^1.0.6
   "@antdv-next/icons": ^1.0.5
   "@nuxt/devtools": ^3.2.4
   "@nuxt/eslint-config": ^1.15.2
@@ -14,15 +14,15 @@ catalog:
   "@nuxt/schema": ^4.4.2
   "@nuxt/test-utils": ^4.0.0
   "@types/jsdom": ^27.0.0
-  antdv-next: ^1.1.5
+  antdv-next: ^1.1.7
   bumpp: ^10.4.1
   changelogen: ^0.6.2
   eslint: ^9.39.4
   jsdom: ^28.1.0
-  nitropack: ^2.13.1
+  nitropack: ^2.13.2
   nuxt: ^4.4.2
   typescript: ~5.9.3
   vite-plugin-dayjs: ^1.0.1
-  vitest: ^4.1.0
-  vue: ^3.5.30
+  vitest: ^4.1.1
+  vue: ^3.5.31
   vue-tsc: ^3.2.6
