@@ -46,6 +46,23 @@ const iconsSvgLibName = '@ant-design/icons-svg'
 const pickerLibName = '@v-c/picker'
 const dayjsLibName = 'dayjs'
 
+/**
+ * Nuxt 4.3+ mirrors `build.transpile` string entries to the **client** dev
+ * `optimizeDeps.exclude`, which disables pre-bundling and can explode HTTP
+ * requests for large packages (e.g. `@ant-design/icons-svg`).
+ *
+ * Returning `false` for `isClient && isDev` keeps normal transpilation /
+ * `ssr.noExternal` behaviour for server and production while allowing Vite
+ * to pre-bundle on the client in development.
+ *
+ * @see https://github.com/nuxt/nuxt/blob/main/packages/vite/src/shared/client.ts
+ */
+type TranspileCtx = { isClient?: boolean; isServer?: boolean; isDev: boolean }
+
+function transpileExceptViteClientDev(dep: string) {
+  return (env: TranspileCtx) => (env.isClient === true && env.isDev ? false : dep)
+}
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@antdv-next/nuxt',
@@ -64,23 +81,24 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     const transpileList = _nuxt.options.build.transpile
-    const appendTranspile = (dep: string) => {
-      if (!transpileList.includes(dep)) {
-        transpileList.push(dep)
-      }
+    const pushTranspileFn = (fn: (env: TranspileCtx) => string | false) => {
+      transpileList.push(fn)
     }
 
-    // Keep icon definition modules in Nuxt transform pipeline to avoid
-    // cold-start interop inconsistency in dev SSR/hydration.
+    // Large UI stack: use conditional transpile so Nuxt 4.3+ does not put
+    // these into client dev `optimizeDeps.exclude`.
     if (_options.component !== false) {
-      appendTranspile(libName)
-      appendTranspile(pickerLibName)
-      appendTranspile(dayjsLibName)
+      pushTranspileFn(transpileExceptViteClientDev(libName))
+      pushTranspileFn(transpileExceptViteClientDev(pickerLibName))
+      pushTranspileFn(transpileExceptViteClientDev(dayjsLibName))
     }
 
-    // Always transpile icon libs because users may import icons directly
-    appendTranspile(iconLibName)
-    appendTranspile(iconsSvgLibName)
+    // Only when icon components are enabled — `@ant-design/icons-svg` has
+    // If you import icons in script with `icon: false`,
+    if (_options.icon === true) {
+      pushTranspileFn(transpileExceptViteClientDev(iconLibName))
+      pushTranspileFn(transpileExceptViteClientDev(iconsSvgLibName))
+    }
 
     // Register components
     if (_options.component !== false) {
