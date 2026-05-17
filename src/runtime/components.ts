@@ -14,6 +14,7 @@ const values = [
   'Row',
   'Badge',
   'BadgeRibbon',
+  'BorderBeam',
   'Tag',
   'CheckableTag',
   'CheckableTagGroup',

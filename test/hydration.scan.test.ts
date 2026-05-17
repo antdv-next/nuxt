@@ -106,6 +106,7 @@ const App = pickExport(loadModule('antdv-next/dist/app/index', 'App'))
 const AutoComplete = pickExport(loadModule('antdv-next/dist/auto-complete/index', 'AutoComplete'))
 const Avatar = pickExport(loadModule('antdv-next/dist/avatar/index', 'Avatar'))
 const Badge = pickExport(loadModule('antdv-next/dist/badge/index', 'Badge'))
+const BorderBeam = pickExport(loadModule('antdv-next/dist/border-beam/index', 'BorderBeam'))
 const Breadcrumb = pickExport(loadModule('antdv-next/dist/breadcrumb/index', 'Breadcrumb'))
 const Button = pickExport(loadModule('antdv-next/dist/button/index', 'Button'))
 const Calendar = pickExport(loadModule('antdv-next/dist/calendar/index', 'Calendar'))
@@ -240,6 +241,7 @@ const RENDERERS: Record<string, RenderFn> = {
   'auto-complete': () => h(AutoComplete, { value: 'one', options: [{ value: 'one' }, { value: 'two' }] }),
   'avatar': () => h(Avatar, { src: 'https://via.placeholder.com/40' }),
   'badge': () => h(Badge, { count: 5 }, { default: () => h('span', 'Badge') }),
+  'border-beam': () => h(BorderBeam, null, { default: () => h('div', { style: 'width:160px;height:80px;border:1px solid #ddd;' }, 'Border Beam') }),
   'breadcrumb': () => h(Breadcrumb, { items: [{ title: 'Home' }, { title: 'Page' }] }),
   'button': () => h(Button, { type: 'primary' }, { default: () => 'Button' }),
   'calendar': () => h(Calendar, { fullscreen: false }),
